@@ -1,0 +1,23 @@
+{
+  "name": "employeemanagementsystem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anacecyflores1/EmployeeManagementSystem.git"
+  },
+  "author": "Ana Cecilia Flores",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anacecyflores1/EmployeeManagementSystem/issues"
+  },
+  "homepage": "https://github.com/anacecyflores1/EmployeeManagementSystem#readme",
+  "dependencies": {
+    "express-handlebars": "^6.0.6"
+  }
+}
