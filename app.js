@@ -14,8 +14,17 @@ connection.connect(function (err) {
   console.log("Connected!");
 });
 
-showRoles();
+showEmployees();
+function showEmployees() {
+  const sql = "SELECT * FROM employee";
+  connection.query(sql, function (err, results) {
+    if (err) throw err;
+    console.log(results);
+    console.table(results);
+  });
+}
 
+showRoles();
 function showRoles() {
   const sql = "SELECT * FROM roles";
   connection.query(sql, function (err, results) {
@@ -24,11 +33,3 @@ function showRoles() {
     console.table(results);
   });
 }
-// with placeholder
-// connection.query(
-//   "SELECT * FROM `table` WHERE `name` = ? AND `age` > ?",
-//   ["Page", 45],
-//   function (err, results) {
-//     console.log(results);
-//   }
-// );
