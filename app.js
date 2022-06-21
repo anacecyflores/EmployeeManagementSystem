@@ -20,7 +20,24 @@ connection.connect(function (err) {
 
 start();
 function start() {
-  inquirer.prompt([]);
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        name: "options",
+        message: "Select an option",
+        choices: [
+          "VIEW all employees",
+          "ADD employee",
+          "UPDATE employee role",
+          "VIEW ALL departments",
+          "ADD department",
+        ],
+      },
+    ])
+    .then(function (options) {
+      console.log(options);
+    });
 }
 
 // Query for Employee Table
