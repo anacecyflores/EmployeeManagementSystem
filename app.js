@@ -58,7 +58,7 @@ function start() {
       }
     });
 }
-// FUNCTIONS for SHOW
+// --------------FUNCTION -----------------------
 function showEmployees() {
   const sql = "SELECT * FROM employee";
   connection.query(sql, function (err, results) {
@@ -83,8 +83,7 @@ function showRoles() {
     console.table(results);
   });
 }
-// -----------------------------------------------
-
+// --------------FUNCTION TO ADD NEW EMPLOYEE-----------------------
 function addEmployee() {
   const sqlRole = "SELECT * FROM roles";
   connection.query(sqlRole, function (err, result) {
@@ -126,8 +125,14 @@ function addEmployee() {
           choices.role,
           choices.manager_name
         );
+        const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (${choices.first_name},${choices.last_name},${choices.chooseRole},${choices.manager_id})`;
+        connection.query(sql, function (err, result) {
+          if (err) throw err;
+          console.table(sql.result);
+        });
       });
   });
+  // -------------END------------------
 }
 
 // function updateEmployeeRole() {UPDATE roles
