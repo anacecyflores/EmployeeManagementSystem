@@ -40,6 +40,9 @@ function start() {
       if (choices.options === "VIEW all employees") {
         showEmployees();
       }
+      if (choices.options === "VIEW ALL departments") {
+        showDepartment();
+      }
     });
 }
 

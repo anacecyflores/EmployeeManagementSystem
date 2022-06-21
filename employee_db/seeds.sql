@@ -9,13 +9,11 @@ VALUES ("Lord", "Farquad",1,NULL),
        ("Leonardo", " Da Vinci" ,2,2);
 
     INSERT INTO department (department_name)
-VALUES("movies"),
-       ("art"),
-       ("music"),
-       ("books"),
-       ("books"),
-       ("entertainment"),
-       ("music"),
+VALUES("Movies"),
+       ("Art"),
+       ("Music"),
+       ("Books"),
+       ("Entertainment"),
        ("Management");
 
     INSERT INTO roles ( title, salary, department_id)
