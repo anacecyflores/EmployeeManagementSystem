@@ -28,10 +28,12 @@ function start() {
         message: "Select an option",
         choices: [
           "VIEW all employees",
+          "VIEW all roles",
           "ADD employee",
           "UPDATE employee role",
           "VIEW ALL departments",
           "ADD department",
+          "ADD role",
         ],
       },
     ])
@@ -39,13 +41,27 @@ function start() {
       console.log(choices.options);
       if (choices.options === "VIEW all employees") {
         showEmployees();
+        if (choices.options === "VIEW ALL roles") {
+          showRoles();
+        }
+      }
+      if (choices.options === "ADD employee") {
+        addEmployee();
+      }
+      if (choices.options === "UPDATE employee role") {
+        updateEmployeeRole();
       }
       if (choices.options === "VIEW ALL departments") {
         showDepartment();
+        if (choices.options === "ADD department") {
+          addDepartment();
+        }
+      }
+      if (choices.options === "ADD role") {
+        addRole();
       }
     });
 }
-
 // Query for Employee Table
 function showEmployees() {
   const sql = "SELECT * FROM employee";
@@ -73,3 +89,8 @@ function showRoles() {
     console.table(results);
   });
 }
+
+function addEmployee() {}
+function updateEmployeeRole() {}
+function addDepartment() {}
+function addRole() {}
