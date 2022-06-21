@@ -1,0 +1,24 @@
+{
+  "name": "employeemanagementsystem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anacecyflores1/EmployeeManagementSystem.git"
+  },
+  "author": "Ana Cecilia Flores",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anacecyflores1/EmployeeManagementSystem/issues"
+  },
+  "homepage": "https://github.com/anacecyflores1/EmployeeManagementSystem#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^9.0.0",
+    "mysql2": "^2.3.3"
+  }
+}
