@@ -35,8 +35,11 @@ function start() {
         ],
       },
     ])
-    .then(function (options) {
-      console.log(options);
+    .then(function (choices) {
+      console.log(choices.options);
+      if (choices.options === "VIEW all employees") {
+        showEmployees();
+      }
     });
 }
 
