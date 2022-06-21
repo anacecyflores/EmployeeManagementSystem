@@ -1,4 +1,4 @@
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+    INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ("Lord", "Farquad",1,NULL),
        ("Elliot", "Smith" ,3,NULL),
        ("Frida ", "Kahlo",2 ,NULL),
@@ -8,7 +8,7 @@ VALUES ("Lord", "Farquad",1,NULL),
        ("Jimmi", "Hendrix",3, NULL),
        ("Leonardo", " Da Vinci" ,2,2);
 
-       INSERT INTO department (department_name)
+    INSERT INTO department (department_name)
 VALUES("movies"),
        ("art"),
        ("music"),
@@ -18,7 +18,7 @@ VALUES("movies"),
        ("music"),
        ("Management");
 
-       INSERT INTO roles ( title, salary, department_id)
+    INSERT INTO roles ( title, salary, department_id)
 VALUES ( "villain", 500000, 1),
        ( "artist", 20000, 2),
        ( "writer", 45000, 3),

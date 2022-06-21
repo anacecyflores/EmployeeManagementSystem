@@ -1,8 +1,7 @@
-// get the client
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const consTable = require("console.table");
-// create the connection to database
+// Connection to database
 const connection = mysql.createConnection({
   host: "localhost",
   user: "runSql",
@@ -14,7 +13,12 @@ connection.connect(function (err) {
   console.log("Connected!");
 });
 
-showEmployees();
+// calling functions
+// showEmployees();
+// showDepartment();
+// showRoles();
+
+// Query for Employee Table
 function showEmployees() {
   const sql = "SELECT * FROM employee";
   connection.query(sql, function (err, results) {
@@ -23,8 +27,7 @@ function showEmployees() {
     console.table(results);
   });
 }
-
-showDepartment();
+// Query for Department Table
 function showDepartment() {
   const sql = "SELECT * FROM department";
   connection.query(sql, function (err, results) {
@@ -33,8 +36,7 @@ function showDepartment() {
     console.table(results);
   });
 }
-
-showRoles();
+// Query for Role Table
 function showRoles() {
   const sql = "SELECT * FROM roles";
   connection.query(sql, function (err, results) {
