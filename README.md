@@ -1,4 +1,4 @@
-# EmployeeManagementSystem
+# Employee Management System
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -19,9 +19,9 @@ npm i, sql2
 
 # Usage:
 
-Walk-through Video: https://drive.google.com/file/d/1ptR10F4zWjVOjRGYnKzZ7tExSGHcCPVe/view
+Walk-through Video:
 
-- click on the Heroku deployment link: https://nw-note-taker.herokuapp.com/ and at the top type the title of the note, a description and click on the top right save icon to save your note!
+- Click on the Heroku deployment link:
 
 # Contributors:
 
