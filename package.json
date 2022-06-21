@@ -18,7 +18,7 @@
   "homepage": "https://github.com/anacecyflores1/EmployeeManagementSystem#readme",
   "dependencies": {
     "console.table": "^0.10.0",
-    "inquirer": "^9.0.0",
+    "inquirer": "^6.3.1",
     "mysql2": "^2.3.3"
   }
 }
