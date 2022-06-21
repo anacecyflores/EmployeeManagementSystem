@@ -24,6 +24,16 @@ function showEmployees() {
   });
 }
 
+showDepartment();
+function showDepartment() {
+  const sql = "SELECT * FROM department";
+  connection.query(sql, function (err, results) {
+    if (err) throw err;
+    console.log(results);
+    console.table(results);
+  });
+}
+
 showRoles();
 function showRoles() {
   const sql = "SELECT * FROM roles";
