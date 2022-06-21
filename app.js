@@ -40,7 +40,7 @@ function start() {
           showRoles();
         }
       }
-      //   add employee function
+      //  -----------------------------------
       if (choices.options === "ADD employee") {
         addEmployee();
       }
@@ -86,43 +86,40 @@ function showRoles() {
 // -----------------------------------------------
 
 function addEmployee() {
-  // // INSERT INTO employee (first_name, last_name, role_id, manager_id)
-  // //  VALUES ("", "", NOT NULL,NULL);
-  // const sqlRole = "SELECT * FROM roles";
-  //   connection.query(sqlRole, function (err, results) {
-  //     if (err) throw err;
-  //     console.log(results);
-  //     console.table(results);
-  //   })
   const sqlRole = "SELECT * FROM roles";
   connection.query(sqlRole, function (err, result) {
     if (err) throw err;
-    for (i = 0; i < result.length; i++) console.log(result[i].title);
-    // console.table(result);
+    const roleArr = [];
+    for (i = 0; i < result.length; i++) {
+      roleArr.push(result[i].title);
+    }
+    console.log(roleArr);
+
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "first_name",
+          message: "What is the FIRST name of the new employee?",
+        },
+        {
+          type: "input",
+          name: "last_name",
+          message: "What is the LAST name of the new employee?",
+        },
+        {
+          type: "list",
+          name: "role",
+          message: "Please choose your employee's role",
+          choices: roleArr,
+        },
+      ])
+      .then(function (choices) {
+        console.log(choices.first_name, choices.last_name, choices.role);
+      });
   });
-  inquirer
-    .prompt([
-      {
-        type: "input",
-        name: "first_name",
-        message: "What is the FIRST name of the new employee?",
-      },
-      {
-        type: "input",
-        name: "last_name",
-        message: "What is the LAST name of the new employee?",
-      },
-      {
-        type: "list",
-        name: "role",
-        message: "Please choose your employee's role",
-        choices: ["villain"],
-      },
-    ])
-    .then(function (choices) {
-      console.log(choices.first_name, choices.last_name, choices.role);
-    });
 }
+
 // function updateEmployeeRole() {UPDATE roles
 //     SET role=""
 //     WHERE role_id=1;
