@@ -94,16 +94,22 @@ function addEmployee() {
   //     console.log(results);
   //     console.table(results);
   //   })
+  const sqlRole = "SELECT * FROM roles";
+  connection.query(sqlRole, function (err, result) {
+    if (err) throw err;
+    for (i = 0; i < result.length; i++) console.log(result[i].title);
+    // console.table(result);
+  });
   inquirer
     .prompt([
       {
         type: "input",
-        name: "first name",
+        name: "first_name",
         message: "What is the FIRST name of the new employee?",
       },
       {
         type: "input",
-        name: "last name",
+        name: "last_name",
         message: "What is the LAST name of the new employee?",
       },
       {
@@ -114,7 +120,7 @@ function addEmployee() {
       },
     ])
     .then(function (choices) {
-      console.log(choices);
+      console.log(choices.first_name, choices.last_name, choices.role);
     });
 }
 // function updateEmployeeRole() {UPDATE roles

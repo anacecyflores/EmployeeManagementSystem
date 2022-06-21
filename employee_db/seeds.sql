@@ -19,8 +19,6 @@ VALUES("Movies"),
     INSERT INTO roles ( title, salary, department_id)
 VALUES ( "villain", 500000, 1),
        ( "artist", 20000, 2),
-       ( "writer", 45000, 3),
        ( "musician", 50000, 3),
        ( "writer", 45000, 4),
-       ( "manager", 100000, 5),
        ( "manager", 100000, 5);
