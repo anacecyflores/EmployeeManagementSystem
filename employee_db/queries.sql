@@ -1,5 +1,5 @@
 -- SELECT *
--- FROM course_names;
+-- FROM employee_db;
 
 -- SELECT department, COUNT(id) AS number_courses
 -- FROM course_names
@@ -11,3 +11,5 @@
 -- SELECT *
 -- FROM course_names
 -- JOIN department ON course_names.department = department.id;
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+ VALUES ("", "", NOT NULL,NULL);

@@ -13,11 +13,6 @@ connection.connect(function (err) {
   console.log("Connected!");
 });
 
-// calling functions
-// showEmployees();
-// showDepartment();
-// showRoles();
-
 start();
 function start() {
   inquirer
@@ -45,6 +40,7 @@ function start() {
           showRoles();
         }
       }
+      //   add employee function
       if (choices.options === "ADD employee") {
         addEmployee();
       }
@@ -62,7 +58,7 @@ function start() {
       }
     });
 }
-// Query for Employee Table
+// FUNCTIONS for SHOW
 function showEmployees() {
   const sql = "SELECT * FROM employee";
   connection.query(sql, function (err, results) {
@@ -71,7 +67,6 @@ function showEmployees() {
     console.table(results);
   });
 }
-// Query for Department Table
 function showDepartment() {
   const sql = "SELECT * FROM department";
   connection.query(sql, function (err, results) {
@@ -80,7 +75,6 @@ function showDepartment() {
     console.table(results);
   });
 }
-// Query for Role Table
 function showRoles() {
   const sql = "SELECT * FROM roles";
   connection.query(sql, function (err, results) {
@@ -89,8 +83,46 @@ function showRoles() {
     console.table(results);
   });
 }
+// -----------------------------------------------
 
-function addEmployee() {}
-function updateEmployeeRole() {}
-function addDepartment() {}
-function addRole() {}
+function addEmployee() {
+  // // INSERT INTO employee (first_name, last_name, role_id, manager_id)
+  // //  VALUES ("", "", NOT NULL,NULL);
+  // const sqlRole = "SELECT * FROM roles";
+  //   connection.query(sqlRole, function (err, results) {
+  //     if (err) throw err;
+  //     console.log(results);
+  //     console.table(results);
+  //   })
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "first name",
+        message: "What is the FIRST name of the new employee?",
+      },
+      {
+        type: "input",
+        name: "last name",
+        message: "What is the LAST name of the new employee?",
+      },
+      {
+        type: "list",
+        name: "role",
+        message: "Please choose your employee's role",
+        choices: ["villain"],
+      },
+    ])
+    .then(function (choices) {
+      console.log(choices);
+    });
+}
+// function updateEmployeeRole() {UPDATE roles
+//     SET role=""
+//     WHERE role_id=1;
+
+// function addDepartment() { INSERT INTO department (department_name)
+// VALUES("")}
+
+// function addRole() { INSERT INTO roles ( title, salary, department_id)
+// VALUES ( "", NOT NULL, NOT NULL),}
