@@ -113,9 +113,19 @@ function addEmployee() {
           message: "Please choose your employee's role",
           choices: roleArr,
         },
+        {
+          type: "input",
+          name: "manager_name",
+          message: "What is the name of the new employee's manager (if any)?",
+        },
       ])
       .then(function (choices) {
-        console.log(choices.first_name, choices.last_name, choices.role);
+        console.log(
+          choices.first_name,
+          choices.last_name,
+          choices.role,
+          choices.manager_name
+        );
       });
   });
 }
