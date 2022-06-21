@@ -18,6 +18,11 @@ connection.connect(function (err) {
 // showDepartment();
 // showRoles();
 
+start();
+function start() {
+  inquirer.prompt([]);
+}
+
 // Query for Employee Table
 function showEmployees() {
   const sql = "SELECT * FROM employee";
