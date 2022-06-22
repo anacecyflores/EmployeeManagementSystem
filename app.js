@@ -291,27 +291,26 @@ function updateRole() {
       firstName = result[i].first_name;
       lastName = result[i].last_name;
       console.log(firstName, lastName);
-      uroleArr.push({ name: `${firstName}, ${lastName}` });
+      uroleArr.push({ name: `${firstName} ${lastName}` });
     }
-    // console.log(depArr);
-    //   inquirer
-    //     .prompt([
-    //       {
-    //         type: "list",
-    //         name: "employee",
-    //         message: "Which Employee's role would you like to update?",
-    //         choices: uroleArr,
-    //       },
-    //       {
-    //         type: "list",
-    //         name: "roles",
-    //         message: "What role would you like to update?",
-    //         choices: depArr,
-    //       },
-    //     ])
-    //     .then(function (choices) {
-    //       // console.log(choices);
-    //       console.log(choices.roles_title, choices.employee);
-    //     });
+    console.log(uroleArr);
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "employee_name",
+          message: "Which employee's role would you like to update?",
+          choices: uroleArr,
+        },
+        //       {
+        //         type: "list",
+        //         name: "roles",
+        //         message: "What role would you like to update?",
+        //         choices: depArr,
+        //       },
+      ])
+      .then(function (choices) {
+        console.log(choices);
+      });
   });
 }
