@@ -118,7 +118,6 @@ function addEmp() {
           message: "Choose the employee's Role",
           choices: roleArr,
         },
-        //manager_id must be integer for field value
         {
           type: "input",
           name: "manager_id",
@@ -199,17 +198,29 @@ function addRole() {
       });
   });
 }
-
-//
-//   });
-// });
-//   const sql =
-//   //     'INSERT INTO roles (title, salary, department_id) VALUES ("", "", 1)';
-//
 // // --------------Add Department Function------
-// function addDept() {
-//   //   const sql = 'INSERT INTO department (name) VALUES ("")';
-// }
+function addDept() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "add_department",
+        message: "Enter the name of the department you want to add:",
+      },
+    ])
+    .then(function (input) {
+      console.log(input);
+
+      const sqlDep = con.query("INSERT INTO department SET ?", {
+        department_name: input.add_department,
+      });
+      con.query(sqlDep, function (err, result) {
+        if (err) throw err;
+        console.table(result);
+      });
+    });
+}
+
 // // --------------UPDATE Role Function------
 // function updateRole() {
 //   //   const sql =
