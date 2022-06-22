@@ -1,96 +1,104 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
-const consTable = require("console.table");
-// Connection to database
-const connection = mysql.createConnection({
+const ct = require("console.table");
+
+// create the connection to database
+const con = mysql.createConnection({
   host: "localhost",
   user: "runSql",
   password: "1234",
   database: "employee_db",
 });
-connection.connect(function (err) {
+
+con.connect(function (err) {
   if (err) throw err;
-  console.log("Connected!");
+  console.log("Wow!");
 });
 
-start();
-function start() {
+init();
+function init() {
   inquirer
     .prompt([
       {
         type: "list",
-        name: "options",
-        message: "Select an option",
+        name: "choices",
+        message: "Choose an option",
         choices: [
-          "VIEW all employees",
-          "VIEW all roles",
-          "ADD employee",
-          "UPDATE employee role",
-          "VIEW ALL departments",
-          "ADD department",
-          "ADD role",
+          "View all Employees",
+          "View all Departments",
+          "View all Roles",
+          "Add a Department",
+          "Add a Role",
+          "Add an Employee",
+          "Update an Employee Role",
         ],
       },
     ])
-    .then(function (choices) {
-      console.log(choices.options);
-      if (choices.options === "VIEW all employees") {
+    .then(function (selection) {
+      console.log(selection.choices);
+      if (selection.choices === "View all Employees") {
         showEmployees();
-        if (choices.options === "VIEW ALL roles") {
-          showRoles();
-        }
       }
-      //  -----------------------------------
-      if (choices.options === "ADD employee") {
-        addEmployee();
+      if (selection.choices === "View all Departments") {
+        showDepts();
       }
-      if (choices.options === "UPDATE employee role") {
-        updateEmployeeRole();
+      if (selection.choices === "View all Roles") {
+        showRoles();
       }
-      if (choices.options === "VIEW ALL departments") {
-        showDepartment();
-        if (choices.options === "ADD department") {
-          addDepartment();
-        }
-      }
-      if (choices.options === "ADD role") {
+      if (selection.choices === "Add a Role") {
         addRole();
+      }
+      if (selection.choices === "Add a Department") {
+        addDept();
+      }
+      if (selection.choices === "Add an Employee") {
+        addEmp();
+      }
+      if (selection.choices === "Update an Employee Role") {
+        updateRole();
       }
     });
 }
-// --------------FUNCTION -----------------------
+
 function showEmployees() {
   const sql = "SELECT * FROM employee";
-  connection.query(sql, function (err, results) {
+  con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log(results);
-    console.table(results);
+    // console.log(result);
+    console.table(result);
   });
 }
-function showDepartment() {
+
+function showDepts() {
   const sql = "SELECT * FROM department";
-  connection.query(sql, function (err, results) {
+  con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log(results);
-    console.table(results);
+    // console.log(result);
+    console.table(result);
   });
 }
+
 function showRoles() {
   const sql = "SELECT * FROM roles";
-  connection.query(sql, function (err, results) {
+  con.query(sql, function (err, result) {
     if (err) throw err;
-    console.log(results);
-    console.table(results);
+    // console.log(result);
+    console.table(result);
   });
 }
-// --------------FUNCTION TO ADD NEW EMPLOYEE-----------------------
-function addEmployee() {
-  const sqlRole = "SELECT * FROM roles";
-  connection.query(sqlRole, function (err, result) {
+
+//-------------------------------------------------------------------------------
+
+function addEmp() {
+  const sqlR = "SELECT * FROM roles";
+  con.query(sqlR, function (err, result) {
     if (err) throw err;
     const roleArr = [];
     for (i = 0; i < result.length; i++) {
-      roleArr.push(result[i].title);
+      roleTitle = result[i].title;
+      roleId = result[i].id;
+      console.log(roleTitle, roleId);
+      roleArr.push({ name: roleTitle, value: roleId });
     }
     console.log(roleArr);
 
@@ -99,48 +107,56 @@ function addEmployee() {
         {
           type: "input",
           name: "first_name",
-          message: "What is the FIRST name of the new employee?",
+          message: "Enter the employee's first name",
         },
         {
           type: "input",
           name: "last_name",
-          message: "What is the LAST name of the new employee?",
+          message: "Enter the employee's last name",
         },
         {
           type: "list",
-          name: "role",
-          message: "Please choose your employee's role",
+          name: "role_id",
+          message: "Choose the employee's Role",
           choices: roleArr,
         },
+        //manager_id must be integer for field value
         {
           type: "input",
-          name: "manager_name",
-          message: "What is the name of the new employee's manager (if any)?",
+          name: "manager_id",
+          message: "Enter the employee's manager ID(if applicable)",
         },
       ])
       .then(function (choices) {
         console.log(
           choices.first_name,
           choices.last_name,
-          choices.role,
-          choices.manager_name
+          choices.role_id,
+          choices.manager_id
         );
-        const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (${choices.first_name},${choices.last_name},${choices.chooseRole},${choices.manager_id})`;
-        connection.query(sql, function (err, result) {
+
+        const sql = con.query("INSERT INTO employee SET ?", {
+          first_name: choices.first_name,
+          last_name: choices.last_name,
+          role_id: choices.role_id,
+          manager_id: choices.manager_id,
+        });
+        con.query(sql, function (err, result) {
           if (err) throw err;
-          console.table(sql.result);
+          console.table(result);
         });
       });
   });
-  // -------------END------------------
 }
 
-// function updateEmployeeRole() {UPDATE roles
-//     SET role=""
-//     WHERE role_id=1;
-
-// function addDepartment() { INSERT INTO department (department_name)
-// VALUES("")}
-
-// function addRole() { INSERT INTO roles ( title, salary, department_id)
-// VALUES ( "", NOT NULL, NOT NULL),}
+function addRole() {
+  const sql =
+    'INSERT INTO roles (title, salary, department_id) VALUES ("", "", 1)';
+}
+function addDept() {
+  const sql = 'INSERT INTO department (name) VALUES ("")';
+}
+function updateRole() {
+  const sql =
+    'UPDATE employee SET first_name =(""), last_name = (""), role_id = 1, manager_id =1';
+}
