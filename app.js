@@ -55,7 +55,7 @@ function init() {
         addEmp();
       }
       if (selection.choices === "Update an Employee Role") {
-        updateRole();
+        updateRoleName();
       }
     });
 }
@@ -281,7 +281,7 @@ function addDept() {
   }
 }
 // --------------UPDATE Role Function------
-function updateRole() {
+function updateRoleName() {
   const sqlUrole = "SELECT * FROM employee";
   con.query(sqlUrole, function (err, result) {
     if (err) throw err;
@@ -302,15 +302,36 @@ function updateRole() {
           message: "Which employee's role would you like to update?",
           choices: uroleArr,
         },
-        //       {
-        //         type: "list",
-        //         name: "roles",
-        //         message: "What role would you like to update?",
-        //         choices: depArr,
-        //       },
       ])
       .then(function (choices) {
         console.log(choices);
+        return updateEmpRole();
+      });
+  });
+}
+function updateEmpRole() {
+  const sqlR = "SELECT * FROM roles";
+  con.query(sqlR, function (err, result) {
+    if (err) throw err;
+    const roleArr = [];
+    for (i = 0; i < result.length; i++) {
+      roleTitle = result[i].title;
+      roleId = result[i].id;
+      console.log(roleTitle, roleId);
+      roleArr.push({ name: roleTitle, value: roleId });
+    }
+    console.log(roleArr);
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "roles",
+          message: "What role would you like to update?",
+          choices: roleArr,
+        },
+      ])
+      .then(function (roleChoices) {
+        console.log(roleChoices);
       });
   });
 }
