@@ -281,7 +281,7 @@ function addDept() {
   }
 }
 // --------------UPDATE Role Function------
-function updateRoleName() {
+function updateRoleName(empNameChoices) {
   const sqlUrole = "SELECT * FROM employee";
   con.query(sqlUrole, function (err, result) {
     if (err) throw err;
@@ -293,7 +293,6 @@ function updateRoleName() {
       console.log(firstName, lastName);
       uroleArr.push({ name: `${firstName} ${lastName}` });
     }
-    console.log(uroleArr);
     inquirer
       .prompt([
         {
@@ -303,13 +302,13 @@ function updateRoleName() {
           choices: uroleArr,
         },
       ])
-      .then(function (choices) {
-        console.log(choices);
-        return updateEmpRole();
+      .then(function (empNameChoices) {
+        console.log(empNameChoices);
+        return updateEmpRole(empNameChoices);
       });
   });
 }
-function updateEmpRole() {
+function updateEmpRole(empNameChoices) {
   const sqlR = "SELECT * FROM roles";
   con.query(sqlR, function (err, result) {
     if (err) throw err;
@@ -332,6 +331,20 @@ function updateEmpRole() {
       ])
       .then(function (roleChoices) {
         console.log(roleChoices);
+        return updateEmpManager(empNameChoices, roleChoices);
       });
   });
+}
+function updateEmpManager(empNameChoices, roleChoices) {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "manager_id",
+        message: "What is the manager's ID for this Employee?",
+      },
+    ])
+    .then(function (managerOption) {
+      console.log(empNameChoices, roleChoices, managerOption);
+    });
 }
