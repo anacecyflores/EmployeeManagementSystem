@@ -145,7 +145,7 @@ function addEmp() {
       });
   });
 }
-// --------------Add Role Function------
+// --------------ADD Role Function------
 function addRole() {
   const sqlArole = "SELECT * FROM department";
   con.query(sqlArole, function (err, result) {
@@ -198,7 +198,7 @@ function addRole() {
       });
   });
 }
-// // --------------Add Department Function------
+// // --------------ADD Department Function------
 function addDept() {
   inquirer
     .prompt([
@@ -219,10 +219,99 @@ function addDept() {
         console.table(result);
       });
     });
-}
 
-// // --------------UPDATE Role Function------
-// function updateRole() {
-//   //   const sql =
-//   //     'UPDATE employee SET first_name =(""), last_name = (""), role_id = 1, manager_id =1';
-// }
+  // // --------------UPDATE Role Function------
+  function updateRole() {
+    const sqlR = "SELECT * FROM roles";
+    con.query(sqlR, function (err, result) {
+      if (err) throw err;
+      const roleArr = [];
+      for (i = 0; i < result.length; i++) {
+        roleTitle = result[i].title;
+        roleId = result[i].id;
+        console.log(roleTitle, roleId);
+        roleArr.push({ name: roleTitle, value: roleId });
+      }
+      console.log(roleArr);
+
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "first_name",
+            message: "Enter the employee's first name",
+          },
+          {
+            type: "input",
+            name: "last_name",
+            message: "Enter the employee's last name",
+          },
+          {
+            type: "list",
+            name: "role_id",
+            message: "Choose the employee's Role",
+            choices: roleArr,
+          },
+          {
+            type: "input",
+            name: "manager_id",
+            message: "Enter the employee's manager ID(if applicable)",
+          },
+        ])
+        .then(function (choices) {
+          console.log(
+            choices.first_name,
+            choices.last_name,
+            choices.role_id,
+            choices.manager_id
+          );
+
+          const sql = con.query("INSERT INTO employee SET ?", {
+            first_name: choices.first_name,
+            last_name: choices.last_name,
+            role_id: choices.role_id,
+            manager_id: choices.manager_id,
+          });
+          con.query(sql, function (err, result) {
+            if (err) throw err;
+            //   console.table(result);
+          });
+        });
+    });
+  }
+}
+// --------------UPDATE Role Function------
+function updateRole() {
+  const sqlUrole = "SELECT * FROM employee";
+  con.query(sqlUrole, function (err, result) {
+    if (err) throw err;
+    const uroleArr = [];
+    for (i = 0; i < result.length; i++) {
+      //   console.log(result);
+      firstName = result[i].first_name;
+      lastName = result[i].last_name;
+      console.log(firstName, lastName);
+      uroleArr.push({ name: `${firstName}, ${lastName}` });
+    }
+    // console.log(depArr);
+    //   inquirer
+    //     .prompt([
+    //       {
+    //         type: "list",
+    //         name: "employee",
+    //         message: "Which Employee's role would you like to update?",
+    //         choices: uroleArr,
+    //       },
+    //       {
+    //         type: "list",
+    //         name: "roles",
+    //         message: "What role would you like to update?",
+    //         choices: depArr,
+    //       },
+    //     ])
+    //     .then(function (choices) {
+    //       // console.log(choices);
+    //       console.log(choices.roles_title, choices.employee);
+    //     });
+  });
+}
