@@ -1,7 +1,6 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 const ct = require("console.table");
-
 // Connection to database-----------------------
 const con = mysql.createConnection({
   host: "localhost",
@@ -9,10 +8,9 @@ const con = mysql.createConnection({
   password: "1234",
   database: "employee_db",
 });
-
 con.connect(function (err) {
   if (err) throw err;
-  console.log("Wow!");
+  console.log("Wowza!");
 });
 // ----------------Start Inquirer prompt-----
 init();
@@ -64,7 +62,6 @@ function showEmployees() {
   const sql = "SELECT * FROM employee";
   con.query(sql, function (err, result) {
     if (err) throw err;
-    // console.log(result);
     console.table(result);
   });
 }
@@ -99,7 +96,6 @@ function addEmp() {
       roleArr.push({ name: roleTitle, value: roleId });
     }
     console.log(roleArr);
-
     inquirer
       .prompt([
         {
@@ -185,7 +181,6 @@ function addRole() {
           choices.roles_salary,
           choices.department_id
         );
-
         const sqlAr = con.query("INSERT INTO roles SET ?", {
           title: choices.roles_title,
           salary: choices.roles_salary,
@@ -210,7 +205,6 @@ function addDept() {
     ])
     .then(function (input) {
       console.log(input);
-
       const sqlDep = con.query("INSERT INTO department SET ?", {
         department_name: input.add_department,
       });
@@ -219,7 +213,6 @@ function addDept() {
         console.table(result);
       });
     });
-
   // // --------------UPDATE Role Function------
   function updateRole() {
     const sqlR = "SELECT * FROM roles";
@@ -233,7 +226,6 @@ function addDept() {
         roleArr.push({ name: roleTitle, value: roleId });
       }
       console.log(roleArr);
-
       inquirer
         .prompt([
           {
@@ -265,7 +257,6 @@ function addDept() {
             choices.role_id,
             choices.manager_id
           );
-
           const sql = con.query("INSERT INTO employee SET ?", {
             first_name: choices.first_name,
             last_name: choices.last_name,
@@ -347,4 +338,5 @@ function updateEmpManager(empNameChoices, roleChoices) {
     .then(function (managerOption) {
       console.log(empNameChoices, roleChoices, managerOption);
     });
+  const sqlUpdate = "UPDATE roles SET title= 'input', ";
 }
