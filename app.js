@@ -271,7 +271,7 @@ function addDept() {
     });
   }
 }
-// --------------UPDATE Role Function------
+// --------------UPDATE Role Name Function------
 function updateRoleName(empNameChoices) {
   const sqlUrole = "SELECT * FROM employee";
   con.query(sqlUrole, function (err, result) {
@@ -282,7 +282,10 @@ function updateRoleName(empNameChoices) {
       firstName = result[i].first_name;
       lastName = result[i].last_name;
       console.log(firstName, lastName);
-      uroleArr.push({ name: `${firstName} ${lastName}` });
+      uroleArr.push({
+        name: `${firstName} ${lastName}`,
+        value: { firstName, lastName },
+      });
     }
     inquirer
       .prompt([
@@ -338,5 +341,10 @@ function updateEmpManager(empNameChoices, roleChoices) {
     .then(function (managerOption) {
       console.log(empNameChoices, roleChoices, managerOption);
     });
-  const sqlUpdate = "UPDATE roles SET title= 'input', ";
+  const sqlUpdate = `UPDATE employee SET role_id =? WHERE last_name =?`;
+  const empVals = [roleChoices.roles, empNameChoices.employee_name.lastName];
+  con.query(sqlUpdate, empVals, (err, response) => {
+    if (err) throw err;
+    console.log(response);
+  });
 }
