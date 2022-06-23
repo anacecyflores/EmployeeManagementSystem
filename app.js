@@ -1,6 +1,7 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
-const ct = require("console.table");
+// const ct = require("console.table");
+// const chalk = require("chalk");
 // Connection to database-----------------------
 const con = mysql.createConnection({
   host: "localhost",
@@ -10,7 +11,7 @@ const con = mysql.createConnection({
 });
 con.connect(function (err) {
   if (err) throw err;
-  console.log("Wowza!");
+  //   console.log(chalk.burgundy("wowza!"));
 });
 // ----------------Start Inquirer prompt-----
 init();
@@ -47,12 +48,14 @@ function init() {
         addRole();
       }
       if (selection.choices === "Add a Department") {
+        console.log("Department Added!");
         addDept();
       }
       if (selection.choices === "Add an Employee") {
         addEmp();
       }
       if (selection.choices === "Update an Employee Role") {
+        console.log("Employee Role Updated!");
         updateRoleName();
       }
     });
@@ -191,6 +194,7 @@ function addRole() {
           if (err) throw err;
           console.table(result);
         });
+        console.log("Role Added!");
       });
   });
 }
@@ -213,6 +217,7 @@ function addDept() {
         if (err) throw err;
         console.table(result);
       });
+      console.log("Department Added!");
     });
   // // --------------UPDATE Role Function------
   function updateRole() {
@@ -301,6 +306,7 @@ function updateRoleName(empNameChoices) {
         console.log(empNameChoices);
         return updateEmpRole(empNameChoices);
       });
+    console.log("Role Updated!");
   });
 }
 function updateEmpRole(empNameChoices) {
@@ -328,6 +334,7 @@ function updateEmpRole(empNameChoices) {
         console.log(roleChoices);
         return updateEmpManager(empNameChoices, roleChoices);
       });
+    console.log("Updated Employee Role!");
   });
 }
 function updateEmpManager(empNameChoices, roleChoices) {
@@ -348,4 +355,5 @@ function updateEmpManager(empNameChoices, roleChoices) {
     if (err) throw err;
     console.log(response);
   });
+  console.log("Updated Employee Role!");
 }
