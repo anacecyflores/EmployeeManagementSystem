@@ -13,25 +13,25 @@ const con = mysql.createConnection({
 con.connect(function (err) {
   if (err) throw err;
   console.log(chalk.blue.bgRed.bold("Wowza!"));
-  //   console.log("     ");
-  //   figlet.text(
-  //     "Welcome to Employee Tracker!",
-  //     {
-  //       font: "colossal",
-  //       horizontalLayout: "default",
-  //       verticalLayout: "default",
-  //       width: 100,
-  //       whitespaceBreak: true,
-  //     },
-  //     function (err, data) {
-  //       if (err) {
-  //         console.log("Something went wrong...");
-  //         console.dir(err);
-  //         return;
-  //       }
-  //       console.log(data);
-  //     }
-  //   );
+  console.log("     ");
+  figlet.text(
+    "Welcome to Employee Tracker!",
+    {
+      font: "small",
+      horizontalLayout: "default",
+      verticalLayout: "default",
+      width: 120,
+      whitespaceBreak: true,
+    },
+    function (err, data) {
+      if (err) {
+        console.log("Something went wrong...");
+        console.dir(err);
+        return;
+      }
+      console.log(data);
+    }
+  );
 });
 // ----------------Start Inquirer prompt-----
 init();
