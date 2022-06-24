@@ -21,7 +21,6 @@ CREATE TABLE department (
 -- changed from role to roles to abide by the syntax rules
 CREATE TABLE roles (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-
   title VARCHAR(30) NOT NULL,
   salary DECIMAL NOT NULL,
   department_id INT

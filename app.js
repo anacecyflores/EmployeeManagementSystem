@@ -1,7 +1,8 @@
-const mysql = require("mysql2");
-const inquirer = require("inquirer");
-// const ct = require("console.table");
-// const chalk = require("chalk");
+import mysql from "mysql2";
+import inquirer from "inquirer";
+import ct from "console.table";
+import chalk from "chalk";
+import figlet from "figlet";
 // Connection to database-----------------------
 const con = mysql.createConnection({
   host: "localhost",
@@ -11,7 +12,26 @@ const con = mysql.createConnection({
 });
 con.connect(function (err) {
   if (err) throw err;
-  //   console.log(chalk.burgundy("wowza!"));
+  console.log(chalk.blue.bgRed.bold("Wowza!"));
+  //   console.log("     ");
+  //   figlet.text(
+  //     "Welcome to Employee Tracker!",
+  //     {
+  //       font: "colossal",
+  //       horizontalLayout: "default",
+  //       verticalLayout: "default",
+  //       width: 100,
+  //       whitespaceBreak: true,
+  //     },
+  //     function (err, data) {
+  //       if (err) {
+  //         console.log("Something went wrong...");
+  //         console.dir(err);
+  //         return;
+  //       }
+  //       console.log(data);
+  //     }
+  //   );
 });
 // ----------------Start Inquirer prompt-----
 init();
@@ -63,9 +83,10 @@ function init() {
 // --------------Show Employee Function--------
 function showEmployees() {
   const sql =
-    "SELECT employee.id,employee.first_name,employee.last_name,roles.salary,roles.title,employee.manager_id,department.department_name FROM employee LEFT JOIN roles ON roles.id = employee.role_id LEFT JOIN department ON department.id = roles.department_id ";
+    "SELECT employee.id AS 'ID #',employee.first_name AS 'First Name',employee.last_name AS 'Last Name',roles.salary AS '$alary',roles.title AS 'Job Title',department.department_name AS 'Department',CONCAT(manager.first_name, manager.last_name) AS 'Manager', employee.manager_id AS 'Manager Id #' FROM employee LEFT JOIN roles ON roles.id = employee.role_id LEFT JOIN department ON department.id = roles.department_id LEFT JOIN employee manager ON manager.id = employee.manager_id ";
   con.query(sql, function (err, result) {
     if (err) throw err;
+
     console.table(result);
   });
 }
@@ -80,7 +101,8 @@ function showDepts() {
 }
 // --------------Show Roles Function------
 function showRoles() {
-  const sql = "SELECT * FROM roles";
+  const sql =
+    "SELECT roles.id, roles.title, roles.salary,department.department_name FROM roles LEFT JOIN  department ON roles.department_id = department.id";
   con.query(sql, function (err, result) {
     if (err) throw err;
     // console.log(result);

@@ -1,12 +1,12 @@
     INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Lord", "Farquad",1,NULL),
-       ("Elliot", "Smith" ,3,NULL),
-       ("Frida ", "Kahlo",2 ,NULL),
-       ("Gabriel", "Garcia-Marquez", 4,NULL),
-       ("Isabel", "Allende",4, NULL),
-       ("Danny ", "De Vito", 5, 1),
-       ("Jimmi", "Hendrix",3, NULL),
-       ("Leonardo", " Da Vinci" ,2,2);
+VALUES ("Lord", "Farquad",1,6),
+       ("Elliot", "Smith" ,3,8),
+       ("Frida ", "Kahlo",2 ,6),
+       ("Gabriel", "Garcia-Marquez", 4,8),
+       ("Isabel", "Allende",4,6),
+       ("Danny ", "De Vito", 5, NULL),
+       ("Jimmi", "Hendrix",3,8),
+       ("Leonardo", " Da Vinci" ,2,NULL);
 
     INSERT INTO department (department_name)
 VALUES("Movies"),
