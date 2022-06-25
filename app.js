@@ -351,6 +351,36 @@ function deleteDep() {
   });
 }
 //   // --------------DELETE Role Function------
-//  function deleteRole(){}
+function deleteRole() {
+  const sqlR = "SELECT * FROM roles";
+  con.query(sqlR, function (err, result) {
+    if (err) throw err;
+    const roleArr = [];
+    for (i = 0; i < result.length; i++) {
+      roleTitle = result[i].title;
+      roleID = result[i].id;
+      roleArr.push({ name: roleTitle, value: roleID });
+    }
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "employee_role",
+          message: "Choose role to delete:",
+          choices: roleArr,
+        },
+      ])
+      .then(function (roleChoices) {
+        // console.log(roleChoices);
+        con.query(
+          "DELETE FROM roles WHERE id=?",
+          roleChoices.employee_role,
+          (err, response) => {
+            console.log("Role Deleted!");
+          }
+        );
+      });
+  });
+}
 //   // --------------DELETE Employee Function------
 //   function deleteEmp();{}
