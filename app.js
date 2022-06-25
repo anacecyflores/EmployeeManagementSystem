@@ -9,7 +9,6 @@ const con = mysql.createConnection({
   password: "1234",
   database: "employee_db",
 });
-
 con.connect((err) => {
   if (err) throw err;
   figlet.text(
@@ -48,6 +47,9 @@ function init() {
           "Add a Role",
           "Add an Employee",
           "Update an Employee Role",
+          "Delete a Department?",
+          "Delete a Role?",
+          "Delete an Employee?",
         ],
       },
     ])
@@ -73,6 +75,15 @@ function init() {
       }
       if (selection.choices === "Update an Employee Role") {
         updateRoleName();
+      }
+      if (selection.choices === "Delete a Department?") {
+        deleteDep();
+      }
+      if (selection.choices === "Delete a Role?") {
+        deleteRole();
+      }
+      if (selection.choices === "Delete an Employee?") {
+        deleteEmp();
       }
     });
 }
@@ -305,3 +316,41 @@ function addDept() {
     });
   }
 }
+// --------------DELETE Departmemnt Function------
+function deleteDep() {
+  const sqlA = "SELECT * FROM department";
+  con.query(sqlA, function (err, result) {
+    if (err) throw err;
+    const depArr = [];
+    for (i = 0; i < result.length; i++) {
+      depName = result[i].department_name;
+      depID = result[i].id;
+      depArr.push({ name: depName, value: depID });
+    }
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "dep_id",
+          message: "Choose a department",
+          choices: depArr,
+        },
+      ])
+      .then(function (choices) {
+        console.log(choices.roles_name, choices.roles_salary, choices.dep_id);
+        con.query(
+          "DELETE FROM department WHERE id=?",
+          choices.dep_id,
+          (err, response) => {
+            if (err) throw err;
+            console.log("Department Deleted!");
+            init();
+          }
+        );
+      });
+  });
+}
+//   // --------------DELETE Role Function------
+//  function deleteRole(){}
+//   // --------------DELETE Employee Function------
+//   function deleteEmp();{}

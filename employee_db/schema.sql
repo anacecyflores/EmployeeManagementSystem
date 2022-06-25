@@ -2,7 +2,6 @@ DROP DATABASE IF EXISTS employee_db;
 -- Creates the "employee_db" database --
 CREATE DATABASE employee_db;
 
-
 USE employee_db;
 CREATE TABLE employee (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
