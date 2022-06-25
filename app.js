@@ -383,4 +383,40 @@ function deleteRole() {
   });
 }
 //   // --------------DELETE Employee Function------
-//   function deleteEmp();{}
+function deleteEmp() {
+  const sqlE = "SELECT * FROM employee";
+  con.query(sqlE, function (err, result) {
+    if (err) throw err;
+    const uroleArr = [];
+    for (i = 0; i < result.length; i++) {
+      firstName = result[i].first_name;
+      lastName = result[i].last_name;
+      empID = result[i].id;
+      uroleArr.push({
+        name: `${firstName} ${lastName}`,
+        value: `${empID}`,
+      });
+    }
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "employee_name",
+          message: "Choose an employee to delete:",
+          choices: uroleArr,
+        },
+      ])
+      .then(function (choices) {
+        console.log(choices);
+        con.query(
+          "DELETE FROM employee WHERE id=?",
+          choices.employee_name,
+          (err, response) => {
+            if (err) throw err;
+            console.log("Employee Deleted!");
+            init();
+          }
+        );
+      });
+  });
+}
